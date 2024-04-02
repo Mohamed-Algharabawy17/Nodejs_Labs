@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>User Details</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h3 class="text-danger">Welcom {firstName} {lastName} you have entered :</h3>
+        <table class="table border mt-5">
+            <thead>
+              <tr>
+                <th scope="col">Address</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{address}</td>
+                <td>{email}</td>
+                <td>+20 {phone}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+
+    <div class="container mt-5">
+      <button id="fetchClientsBtn" class="btn btn-outline-info">Get All Clients</button>
+      <table class="table border mt-5">
+          <thead>
+            <tr>
+              <th scope="col">First Name</th>
+              <th scope="col">Laast Name</th>
+              <th scope="col">Address</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone</th>
+            </tr>
+          </thead>
+          <tbody id="clientInfo">
+      
+          </tbody>
+        </table>
+    </div>
+
+  <script>
+
+    let fetched = false;
+    document.getElementById('fetchClientsBtn').addEventListener('click', async function() {
+      if(fetched == true){
+        alert("You already fetched data :)")
+        return
+      }
+        try 
+        {
+            let response = await fetch("/data");
+            let data = await response.json();
+            // console.log(data);
+            displayClientData(data)
+            fetched = true;
+            return data;
+        } catch (error) 
+        {
+            console.error("Error fetching data:", error);
+        }
+    });
+
+  function displayClientData(clients) 
+  {
+
+  let dataTable = document.getElementById('clientInfo');
+
+  clients.forEach(function(client) {
+      dataTable.innerHTML += `
+        <tr>
+          <td>${client.firstName}</td>
+          <td>${client.lastName}</td>
+          <td>${client.address}</td>
+          <td>${client.email}</td>
+          <td>+20 ${client.phone}</td>
+        </tr>
+      `
+  }); 
+  }
+  </script>
+</body>
+</html>

@@ -13,5 +13,8 @@ mod1.updateInfo({'flightNum':400});
 
 mod1.displayInfo();
 
-// console.log(mod1.getInfo()['Seat Number']);
+console.log("----------------------------------");
+
+console.log(mod1.getInfo()['Seat Number']);
+console.log(mod1.getInfo()['Flight Number']);
 
