@@ -17,37 +17,6 @@ let getAllUsers = async (req,res)=>{
     }
 }
 
-let getUserByName = async (req,res)=>{
-
-    try 
-    {
-        let foundUsers = await usersModel.find({userName: req.params.userName});
-        if(foundUsers.length != 0){
-            return res.json(foundUsers);
-        } else{
-            return res.json("No users found in DB !!");
-        }
-    } catch (error) {
-        return res.json({"Error": `Cannot get users data !! ${error}`});    
-    }
-}
-
-let addNewUser = async (req,res)=>{
-    let userData = new usersModel(req.body);
-    try {
-        if(userValidation(userData))
-        {
-            await userData.save();
-            return res.json({"Success": `User added successfully :)`});  
-        } else {
-            return res.json(`${userValidation.errors[0].message}`)
-        }
-    } catch (error) {
-        return res.json({"Error": `Cannot add mew user !! ${error}`});    
-    }
-}
-
-
 let updateUser = async (req, res) => {
     try {
         let userMail = req.params.email;
@@ -171,8 +140,6 @@ let Login = async (req, res) => {
 
 module.exports = {
     getAllUsers,
-    getUserByName,
-    addNewUser,
     updateUser,
     deleteUser,
     Register,

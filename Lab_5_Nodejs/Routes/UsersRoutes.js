@@ -4,8 +4,6 @@ const route = express.Router();
 const usersController = require("../Controllers/UsersController");
 
 route.get("/", usersController.getAllUsers);
-route.get("/:userName", usersController.getUserByName);
-route.post("/", usersController.addNewUser);
 route.put("/:email", usersController.updateUser);
 route.delete("/:email", usersController.deleteUser);
 
